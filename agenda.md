@@ -19,7 +19,6 @@
 - [Jan — Privacy-First Local AI](https://www.jan.ai/)
 - [GPT4All](https://www.nomic.ai/gpt4all)
 - [IBM Granite 4.0 Language Models](https://github.com/ibm-granite/granite-4.0-language-models)
-- [IBM Bob](https://bob.ibm.com/)
 - [Dark Reading: Open Source AI Models Security Risks](https://www.darkreading.com/cyber-risk/open-source-ai-models-pose-risks-of-malicious-code-vulnerabilities)
 - [Slides (Speaker Deck)](https://speakerdeck.com/kdubois/jcon-local-development-in-the-ai-era)
 
