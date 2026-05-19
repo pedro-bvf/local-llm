@@ -1,10 +1,9 @@
 # IntelliJ
 .idea/
+**/.idea/
 
 # Arquivos temporários do Office
-~$*.docx
-~$*.xlsx
-~$*.pptx
+~$*
 
 # macOS
 .DS_Store
@@ -12,5 +11,8 @@
 # Maven
 target/
 
-# Java
+# Java / build output
 *.class
+build/
+out/
+generated/

@@ -1,8 +1,0 @@
-com/demo/assistant/DatabaseAssistant$QueryPlan.class
-com/demo/model/Category.class
-com/demo/controller/AssistantController$QuestionRequest.class
-com/demo/assistant/DatabaseAssistant.class
-com/demo/controller/AssistantController.class
-com/demo/model/Product.class
-com/demo/tool/HibernateQueryTool.class
-com/demo/DemoApplication.class
