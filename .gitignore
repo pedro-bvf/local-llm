@@ -10,6 +10,8 @@
 
 # Maven
 target/
+.mvn/
+**/.mvn/
 
 # Java / build output
 *.class
