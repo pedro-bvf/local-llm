@@ -1,0 +1,9 @@
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/DemoApplication.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/assistant/AnswerFormatter.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/assistant/DatabaseAssistant.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/assistant/HqlGenerator.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/config/McpServerConfig.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/controller/AssistantController.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/model/Category.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/model/Product.java
+/Users/pferrevi/Desktop/JCon_2026/local-llm/demo-hibernate-ai/src/main/java/com/demo/tool/HibernateQueryTool.java

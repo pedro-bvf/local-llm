@@ -1,0 +1,19 @@
+services:
+
+  # ─────────────────────────────────────────────────────────────────
+  # Ollama - local LLM
+  # Start: docker compose up -d ollama
+  # Then install the model: docker compose exec ollama ollama pull qwen2.5:3b
+  # ─────────────────────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"           # Accessible from the Spring Boot app at localhost:11434
+    volumes:
+      - ollama_data:/root/.ollama   # Models persist across restarts
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  # postgres_data:
