@@ -21,6 +21,7 @@
 - [IBM Granite 4.0 Language Models](https://github.com/ibm-granite/granite-4.0-language-models)
 - [Dark Reading: Open Source AI Models Security Risks](https://www.darkreading.com/cyber-risk/open-source-ai-models-pose-risks-of-malicious-code-vulnerabilities)
 - [Slides (Speaker Deck)](https://speakerdeck.com/kdubois/jcon-local-development-in-the-ai-era)
+- [Can I Run AI locally](https://www.canirun.ai/)
 
 ------------------------------------
 
