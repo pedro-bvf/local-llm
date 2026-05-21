@@ -75,6 +75,12 @@ Password: <empty>
 - `DatabaseAssistant` injects `ChatClient.Builder` and builds a `ChatClient`.
 - `ChatClient.prompt().system(...).user(...).call().content()` replaces the LangChain4j `@AiService` interfaces from the other demo.
 
+## MCP Support
+
+This project does **not** include MCP (Model Context Protocol) support. The Spring AI version focuses on the core ChatClient API and the two-step orchestration pipeline (HQL generation → HQL execution → answer formatting).
+
+If you want to expose the assistant as an MCP tool for Claude Desktop or other MCP clients, use the LangChain4j version in `../demo-hibernate-ai`. That project includes an optional `McpServerConfig.java` and the necessary dependency — both are commented out and ready to activate.
+
 ## References
 
 - Spring AI Ollama docs: https://docs.spring.io/spring-ai/reference/api/chat/ollama-chat.html
