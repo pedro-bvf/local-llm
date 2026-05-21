@@ -14,21 +14,29 @@ import java.math.BigDecimal;
 @ToString
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+  @Column(nullable = false, precision = 10, scale = 2)
+  private BigDecimal price;
 
-    @Column(nullable = false)
-    private Integer stock;
+  @Column(nullable = false)
+  private Integer stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    @ToString.Exclude
-    private Category category;
+  /** Cost price paid to the supplier — restricted from AI access via HibernateQueryTool. */
+  @Column(nullable = false, precision = 10, scale = 2)
+  private BigDecimal costPrice;
+
+  /** Internal supplier reference code — restricted from AI access via HibernateQueryTool. */
+  @Column(nullable = false)
+  private String supplierCode;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id")
+  @ToString.Exclude
+  private Category category;
 }
