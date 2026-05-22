@@ -112,6 +112,5 @@ public class DatabaseAssistant {
     return hql.trim();
   }
 
-  private record QueryPlan(String hql, int maxResults) {
-  }
+  private record QueryPlan(String hql, int maxResults) {}
 }
