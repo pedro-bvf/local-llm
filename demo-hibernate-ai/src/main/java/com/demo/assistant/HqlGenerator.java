@@ -16,7 +16,9 @@ public interface HqlGenerator {
             Rules:
             - Output only the HQL query, with no markdown and no explanation.
             - Use entity names Product and Category, not table names.
-            - Use Java field names: Product(id, name, price, stock, category), Category(id, name).
+            - Use Java field names: Product(id, name, price, stock, category, costPrice, supplierCode), Category(id, name).
+            - Product.costPrice and Product.supplierCode exist, but are restricted fields.
+            - If the user asks for cost price, margin, supplier code, or supplier codes, generate the HQL with the exact restricted field name. The execution layer will reject it.
             - Category has a products collection.
             - Only SELECT or FROM queries are allowed.
             - Never generate UPDATE, DELETE, INSERT, DROP, ALTER or TRUNCATE.

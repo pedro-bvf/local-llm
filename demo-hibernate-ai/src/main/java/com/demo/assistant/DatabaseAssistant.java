@@ -25,7 +25,13 @@ public class DatabaseAssistant {
       return localModelUnavailableMessage();
     }
 
-    String result = queryTool.executeHqlQuery(queryPlan.hql(), queryPlan.maxResults());
+    String result;
+    try {
+      result = queryTool.executeHqlQuery(queryPlan.hql(), queryPlan.maxResults());
+    } catch (RuntimeException e) {
+      return "HQL query error: " + e.getMessage();
+    }
+
     try {
       return formatAnswer(question, queryPlan.hql(), result);
     } catch (RuntimeException e) {

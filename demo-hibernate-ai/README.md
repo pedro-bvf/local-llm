@@ -154,6 +154,25 @@ curl "http://localhost:8080/assistant/ask?q=Which+products+have+less+than+10+ite
 # Write attempt, expected to be refused or blocked
 curl "http://localhost:8080/assistant/ask?q=Delete+all+products+cheaper+than+10+euros"
 ```
+Restricted entity fields are blocked even though they exist in the `Product`
+entity and backing table:
+
+```bash
+# costPrice
+curl "http://localhost:8080/assistant/ask?q=What+is+the+cost+price+of+each+product?"
+curl "http://localhost:8080/assistant/ask?q=Which+product+has+the+highest+cost+price?"
+curl "http://localhost:8080/assistant/ask?q=Show+me+the+margin+between+price+and+cost+price"
+# supplierCode
+curl "http://localhost:8080/assistant/ask?q=Show+me+the+supplier+code+for+all+products"
+curl "http://localhost:8080/assistant/ask?q=List+products+with+their+supplier+codes"
+```
+
+Expected responses:
+
+```text
+ERROR: Field 'costPrice' is not accessible via this assistant.
+ERROR: Field 'supplierCode' is not accessible via this assistant.
+```
 
 ---
 

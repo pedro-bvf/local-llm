@@ -36,6 +36,14 @@ public class HibernateQueryTool {
   private static final Pattern ENTITY_PATTERN =
     Pattern.compile("(?:FROM|JOIN(?:\\s+FETCH)?)\\s+(\\w+)", Pattern.CASE_INSENSITIVE);
 
+  /**
+   * Matches restricted Java field names anywhere in the HQL query.
+   */
+  private static final Pattern RESTRICTED_FIELD_PATTERN =
+    Pattern.compile(RESTRICTED_FIELDS.stream()
+      .map(Pattern::quote)
+      .collect(Collectors.joining("|", "\\b(", ")\\b")), Pattern.CASE_INSENSITIVE);
+
   @PersistenceContext
   private EntityManager entityManager;
 
@@ -108,12 +116,9 @@ public class HibernateQueryTool {
    * Returns an error string if a restricted field is found, or {@code null}.
    */
   private String validateFieldBlacklist(String hqlQuery) {
-    for (String field : RESTRICTED_FIELDS) {
-      Pattern p = Pattern.compile("\\b" + Pattern.quote(field) + "\\b",
-        Pattern.CASE_INSENSITIVE);
-      if (p.matcher(hqlQuery).find()) {
-        return "ERROR: Field '" + field + "' is not accessible via this assistant.";
-      }
+    Matcher m = RESTRICTED_FIELD_PATTERN.matcher(hqlQuery);
+    if (m.find()) {
+      return "ERROR: Field '" + m.group(1) + "' is not accessible via this assistant.";
     }
     return null;
   }
