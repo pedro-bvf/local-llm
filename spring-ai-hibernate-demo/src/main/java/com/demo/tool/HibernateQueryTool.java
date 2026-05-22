@@ -34,7 +34,7 @@ public class HibernateQueryTool {
    * Matches entity names after FROM and JOIN / JOIN FETCH keywords.
    */
   private static final Pattern ENTITY_PATTERN =
-    Pattern.compile("(?:FROM|JOIN(?:\\s+FETCH)?)\\s+(\\w+)");
+    Pattern.compile("(?i:FROM|JOIN(?:\\s+FETCH)?)\\s+([A-Z]\\w*)");
 
   /**
    * Matches restricted Java field names anywhere in the HQL query.
