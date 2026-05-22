@@ -4,11 +4,6 @@ import com.demo.tool.HibernateQueryTool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * Demo assistant.
- * <p>
- * Coordinates declarative LangChain4j AI services with the Hibernate query tool.
- */
 @Service
 @RequiredArgsConstructor
 public class DatabaseAssistant {
@@ -52,13 +47,7 @@ public class DatabaseAssistant {
   }
 
   /**
-   <p>This method applies two normalisation steps:
-   * <ol>
-   *   <li>Strip markdown fences — removes the opening {@code ```[hql|jpql|sql]} and
-   *       closing {@code ```} if present.</li>
-   *   <li>Truncate at the first semicolon — JPQL does not use statement
-   *       terminators; a trailing {@code ;} causes a parse error in Hibernate.</li>
-   * </ol>
+   * Normalizes the raw HQL string returned by the LLM before passing it to Hibernate.
    */
   private String sanitizeHql(String rawHql) {
     String hql = rawHql.trim();
@@ -80,6 +69,5 @@ public class DatabaseAssistant {
     return "The local model is not reachable. Start Ollama and make sure qwen2.5:3b is installed.";
   }
 
-  private record QueryPlan(String hql, int maxResults) {
-  }
+  private record QueryPlan(String hql, int maxResults) {}
 }

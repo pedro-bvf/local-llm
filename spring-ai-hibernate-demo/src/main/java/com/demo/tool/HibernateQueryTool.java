@@ -30,6 +30,7 @@ public class HibernateQueryTool {
    * application — the restriction applies only to AI-generated queries.
    */
   private static final Set<String> RESTRICTED_FIELDS = Set.of("costPrice", "supplierCode");
+
   /**
    * Matches entity names after FROM and JOIN / JOIN FETCH keywords.
    */

@@ -93,6 +93,9 @@ public class DatabaseAssistant {
       .content();
   }
 
+  /**
+   * Normalizes the raw HQL string returned by the LLM before passing it to Hibernate.
+   */
   private String sanitizeHql(String rawHql) {
     String hql = rawHql.trim();
 

@@ -27,11 +27,9 @@ public class Product {
   @Column(nullable = false)
   private Integer stock;
 
-  /** Cost price paid to the supplier — restricted from AI access via HibernateQueryTool. */
   @Column(nullable = false, precision = 10, scale = 2)
   private BigDecimal costPrice;
 
-  /** Internal supplier reference code — restricted from AI access via HibernateQueryTool. */
   @Column(nullable = false)
   private String supplierCode;
 
