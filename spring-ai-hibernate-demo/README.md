@@ -69,12 +69,15 @@ curl "http://localhost:8080/assistant/ask?q=Show+me+the+margin+between+price+and
 # supplierCode
 curl "http://localhost:8080/assistant/ask?q=Show+me+the+supplier+code+for+all+products"
 curl "http://localhost:8080/assistant/ask?q=List+products+with+their+supplier+codes"
+# unknown entity
+curl "http://localhost:8080/assistant/ask?q=List+each+user+name"
 ```
 Expected responses:
 
 ```text
 ERROR: Field 'costPrice' is not accessible via this assistant.
 ERROR: Field 'supplierCode' is not accessible via this assistant.
+ERROR: Entity 'User' is not accessible via this assistant. Allowed entities: [Product, Category]
 ```
 
 ## H2 Console
