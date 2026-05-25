@@ -138,19 +138,14 @@ Expected result:
 ```bash
 # Simple count
 curl "http://localhost:8080/assistant/ask?q=How+many+products+do+we+have?"
-
 # Top N
 curl "http://localhost:8080/assistant/ask?q=What+are+the+top+5+most+expensive+products?"
-
 # Category filter
 curl "http://localhost:8080/assistant/ask?q=List+all+products+in+the+Electronics+category"
-
 # Aggregation
 curl "http://localhost:8080/assistant/ask?q=What+is+the+average+price+per+category?"
-
 # Low stock
 curl "http://localhost:8080/assistant/ask?q=Which+products+have+less+than+10+items+in+stock?"
-
 # Write attempt, expected to be refused or blocked
 curl "http://localhost:8080/assistant/ask?q=Delete+all+products+cheaper+than+10+euros"
 ```
@@ -165,6 +160,8 @@ curl "http://localhost:8080/assistant/ask?q=Show+me+the+margin+between+price+and
 # supplierCode
 curl "http://localhost:8080/assistant/ask?q=Show+me+the+supplier+code+for+all+products"
 curl "http://localhost:8080/assistant/ask?q=List+products+with+their+supplier+codes"
+# unknown entity
+curl "http://localhost:8080/assistant/ask?q=List+each+user+name"
 ```
 
 Expected responses:
@@ -172,6 +169,7 @@ Expected responses:
 ```text
 ERROR: Field 'costPrice' is not accessible via this assistant.
 ERROR: Field 'supplierCode' is not accessible via this assistant.
+ERROR: Entity 'User' is not accessible via this assistant. Allowed entities: [Product, Category]
 ```
 
 ---
@@ -194,7 +192,9 @@ src/main/java/com/demo/
 │   ├── Category.java            JPA entity for product categories
 │   └── Product.java             JPA entity for products
 ├── tool/
-│   └── HibernateQueryTool.java  Executes read-only HQL through Hibernate
+│   ├── HibernateQueryTool.java  Executes read-only HQL through Hibernate
+│   ├── HqlAccessValidator.java  Validates allowed entities, fields, and read-only HQL
+│   └── HqlResultFormatter.java  Formats raw Hibernate results for the answer formatter
 ├── assistant/
 │   ├── HqlGenerator.java        LangChain4j @AiService that converts questions to HQL
 │   ├── AnswerFormatter.java     LangChain4j @AiService that formats real DB results

@@ -50,11 +50,17 @@ http://localhost:8080
 ## Test Questions
 
 ```bash
+# Simple count
 curl "http://localhost:8080/assistant/ask?q=How+many+products+do+we+have?"
+# Top N
 curl "http://localhost:8080/assistant/ask?q=What+are+the+top+5+most+expensive+products?"
+# Category filter
 curl "http://localhost:8080/assistant/ask?q=List+all+products+in+the+Electronics+category"
+# Aggregation
 curl "http://localhost:8080/assistant/ask?q=What+is+the+average+price+per+category?"
+# Low stock
 curl "http://localhost:8080/assistant/ask?q=Which+products+have+less+than+10+items+in+stock?"
+# Write attempt, expected to be refused or blocked
 curl "http://localhost:8080/assistant/ask?q=Delete+all+products+cheaper+than+10+euros"
 ```
 
@@ -75,9 +81,31 @@ curl "http://localhost:8080/assistant/ask?q=List+each+user+name"
 Expected responses:
 
 ```text
-ERROR: Field 'costPrice' is not accessible via this assistant.
-ERROR: Field 'supplierCode' is not accessible via this assistant.
+ERROR: Field 'costPrice' from entity 'Product' is not accessible via this assistant.
+ERROR: Field 'supplierCode' from entity 'Product' is not accessible via this assistant.
 ERROR: Entity 'User' is not accessible via this assistant. Allowed entities: [Product, Category]
+```
+
+## Project Structure
+
+```text
+src/main/java/com/demo/
+├── DemoApplication.java
+├── model/
+│   ├── Category.java            JPA entity for product categories
+│   └── Product.java             JPA entity for products
+├── tool/
+│   ├── HibernateQueryTool.java  Executes read-only HQL through Hibernate
+│   ├── HqlAccessValidator.java  Validates allowed entities, fields, and read-only HQL
+│   └── HqlResultFormatter.java  Formats raw Hibernate results for the answer formatter
+├── assistant/
+│   └── DatabaseAssistant.java   Coordinates Spring AI, HQL execution, and answer formatting
+└── controller/
+    └── AssistantController.java REST API: GET and POST /assistant/ask
+
+src/main/resources/
+├── application.properties       Ollama, H2, and JPA configuration
+└── data.sql                     Sample data: 25 products in 5 categories
 ```
 
 ## H2 Console
