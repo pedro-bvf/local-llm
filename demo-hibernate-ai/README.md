@@ -167,8 +167,8 @@ curl "http://localhost:8080/assistant/ask?q=List+each+user+name"
 Expected responses:
 
 ```text
-ERROR: Field 'costPrice' is not accessible via this assistant.
-ERROR: Field 'supplierCode' is not accessible via this assistant.
+ERROR: Field 'costPrice' from entity 'Product' is not accessible via this assistant.
+ERROR: Field 'supplierCode' from entity 'Product' is not accessible via this assistant.
 ERROR: Entity 'User' is not accessible via this assistant. Allowed entities: [Product, Category]
 ```
 

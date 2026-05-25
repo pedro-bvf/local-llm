@@ -62,6 +62,7 @@ public class DatabaseAssistant {
         - HQL does not support LIMIT. For top-N questions, use ORDER BY only.
         - For product counts, use: SELECT COUNT(p) FROM Product p.
         - For category filters, use p.category.name.
+        - Compare relationships through their fields, for example p.category.id or p.category.name.
         """)
       .user(question)
       .call()
