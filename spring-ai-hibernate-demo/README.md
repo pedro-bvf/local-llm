@@ -99,7 +99,9 @@ src/main/java/com/demo/
 │   ├── HqlAccessValidator.java  Validates allowed entities, fields, and read-only HQL
 │   └── HqlResultFormatter.java  Formats raw Hibernate results for the answer formatter
 ├── assistant/
-│   └── DatabaseAssistant.java   Coordinates Spring AI, HQL execution, and answer formatting
+│   ├── HqlGenerator.java        Spring AI service that converts questions to HQL
+│   ├── AnswerFormatter.java     Spring AI service that formats real DB results
+│   └── DatabaseAssistant.java   Coordinates Spring AI services and HQL execution
 └── controller/
     └── AssistantController.java REST API: GET and POST /assistant/ask
 
