@@ -7,9 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -23,13 +21,6 @@ public class HibernateQueryTool {
    * application. Add or remove entries here to control AI visibility.
    */
   private static final Set<String> ALLOWED_ENTITIES = Set.of("Product", "Category");
-  /**
-   * Fields the AI assistant is NOT allowed to reference, even within
-   * an allowed entity. Blocks use in SELECT, WHERE, ORDER BY, etc.
-   * These fields may still exist in the @Entity and be used by the
-   * application — the restriction applies only to AI-generated queries.
-   */
-  private static final Set<String> RESTRICTED_FIELDS = Set.of("costPrice", "supplierCode");
 
   /**
    * Matches entity names after FROM and JOIN / JOIN FETCH keywords.
@@ -38,12 +29,26 @@ public class HibernateQueryTool {
     Pattern.compile("(?i:FROM|JOIN(?:\\s+FETCH)?)\\s+([A-Z]\\w*)");
 
   /**
-   * Matches restricted Java field names anywhere in the HQL query.
+   * Fields exposed to the AI assistant for each allowed entity. Any mapped,
+   * unmapped, or hallucinated field outside this set is blocked before
+   * Hibernate tries to parse the HQL.
    */
-  private static final Pattern RESTRICTED_FIELD_PATTERN =
-    Pattern.compile(RESTRICTED_FIELDS.stream()
-      .map(Pattern::quote)
-      .collect(Collectors.joining("|", "\\b(", ")\\b")), Pattern.CASE_INSENSITIVE);
+  private static final Map<String, Set<String>> ALLOWED_FIELDS_BY_ENTITY = Map.of(
+    "Product", Set.of("id", "name", "price", "stock", "category"),
+    "Category", Set.of("id", "name", "products")
+  );
+
+  /**
+   * Matches entity aliases declared in FROM clauses, e.g. FROM Product p.
+   */
+  private static final Pattern ENTITY_ALIAS_PATTERN =
+    Pattern.compile("(?i)\\bFROM\\s+([A-Z]\\w*)\\s+(\\w+)");
+
+  /**
+   * Matches alias.field references, e.g. p.name or Product.name.
+   */
+  private static final Pattern FIELD_REFERENCE_PATTERN =
+    Pattern.compile("\\b([A-Za-z]\\w*)\\.([A-Za-z]\\w*)\\b");
 
   @PersistenceContext
   private EntityManager entityManager;
@@ -55,10 +60,10 @@ public class HibernateQueryTool {
     if (whitelistError != null) return whitelistError;
 
     // Layer 1b: field blacklist — reject queries referencing restricted fields
-    String fieldError = validateFieldBlacklist(hqlQuery);
-    if (fieldError != null) return fieldError;
+    String unknownFieldError = validateFieldWhitelist(hqlQuery);
+    if (unknownFieldError != null) return unknownFieldError;
 
-    // Layer 2: write guard — rejects non-SELECT statements
+    // Layer 1b: field whitelist — reject unknown or non-exposed fields
     String query = hqlQuery.trim().toUpperCase();
     if (query.startsWith("UPDATE")
       || query.startsWith("DELETE")
@@ -109,16 +114,31 @@ public class HibernateQueryTool {
   }
 
   /**
-   * Checks that the HQL query does not reference any field in
-   * {@link #RESTRICTED_FIELDS}. Word-boundary matching catches references
-   * in SELECT, WHERE, ORDER BY, and expressions (e.g. {@code p.costPrice}).
-   * Returns an error string if a restricted field is found, or {@code null}.
+   * Checks alias.field references against the fields exposed to the AI.
+   * This turns hallucinated fields such as p.color into a controlled assistant
+   * error instead of a lower-level Hibernate exception.
    */
-  private String validateFieldBlacklist(String hqlQuery) {
-    Matcher m = RESTRICTED_FIELD_PATTERN.matcher(hqlQuery);
-    if (m.find()) {
-      return "ERROR: Field '" + m.group(1) + "' is not accessible via this assistant.";
+  private String validateFieldWhitelist(String hqlQuery) {
+    Map<String, String> aliases = new HashMap<>();
+    ALLOWED_ENTITIES.forEach(entity -> aliases.put(entity, entity));
+
+    Matcher aliasMatcher = ENTITY_ALIAS_PATTERN.matcher(hqlQuery);
+    while (aliasMatcher.find()) {
+      aliases.put(aliasMatcher.group(2), aliasMatcher.group(1));
     }
+
+    Matcher fieldMatcher = FIELD_REFERENCE_PATTERN.matcher(hqlQuery);
+    while (fieldMatcher.find()) {
+      String alias = fieldMatcher.group(1);
+      String field = fieldMatcher.group(2);
+      String entity = aliases.get(alias);
+      Set<String> allowedFields = ALLOWED_FIELDS_BY_ENTITY.get(entity);
+
+      if (entity != null && !allowedFields.contains(field)) {
+        return "ERROR: Field '" + field + "' from entity '" + entity + "' is not accessible via this assistant.";
+      }
+    }
+
     return null;
   }
 
