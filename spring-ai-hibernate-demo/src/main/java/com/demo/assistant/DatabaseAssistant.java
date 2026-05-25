@@ -61,6 +61,7 @@ public class DatabaseAssistant {
         - Never generate UPDATE, DELETE, INSERT, DROP, ALTER or TRUNCATE.
         - HQL does not support LIMIT. For top-N questions, use ORDER BY only.
         - For product counts, use: SELECT COUNT(p) FROM Product p.
+        - For average price per category, use: SELECT p.category.name, AVG(p.price) FROM Product p GROUP BY p.category.name.
         - For category filters, use p.category.name.
         - Compare relationships through their fields, for example p.category.id or p.category.name.
         """)
