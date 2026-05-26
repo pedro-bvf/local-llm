@@ -94,12 +94,13 @@ src/main/java/com/demo/
 ├── model/
 │   ├── Category.java            JPA entity for product categories
 │   └── Product.java             JPA entity for products
-├── tool/
-│   ├── HibernateQueryTool.java  Executes read-only HQL through Hibernate
+├── dataaccess/
+│   ├── HqlQueryExecutor.java    Executes read-only HQL through Hibernate
 │   ├── HqlAccessValidator.java  Validates allowed entities, fields, and read-only HQL
 │   └── HqlResultFormatter.java  Formats raw Hibernate results for the answer formatter
 ├── assistant/
 │   ├── HqlGenerator.java        Spring AI service that converts questions to HQL
+│   ├── HqlSanitizer.java        Normalizes generated HQL before execution
 │   ├── AnswerFormatter.java     Spring AI service that formats real DB results
 │   └── DatabaseAssistant.java   Coordinates Spring AI services and HQL execution
 └── controller/

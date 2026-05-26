@@ -1,6 +1,6 @@
 package com.demo.assistant;
 
-import com.demo.tool.HibernateQueryTool;
+import com.demo.dataaccess.HqlQueryExecutor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,8 @@ public class DatabaseAssistant {
 
   private final HqlGenerator hqlGenerator;
   private final AnswerFormatter answerFormatter;
-  private final HibernateQueryTool queryTool;
+  private final HqlQueryExecutor queryTool;
+  private final HqlSanitizer hqlSanitizer;
 
   public String chat(String question) {
     QueryPlan queryPlan;
@@ -35,7 +36,7 @@ public class DatabaseAssistant {
   }
 
   private QueryPlan buildQueryPlan(String question) {
-    return new QueryPlan(sanitizeHql(hqlGenerator.generateHql(question)), 50);
+    return new QueryPlan(hqlSanitizer.sanitizeHql(hqlGenerator.generateHql(question)), 50);
   }
 
   private String formatAnswer(String question, String hql, String result) {
@@ -44,25 +45,6 @@ public class DatabaseAssistant {
     }
 
     return answerFormatter.formatAnswer(question, hql, result);
-  }
-
-  /**
-   * Normalizes the raw HQL string returned by the LLM before passing it to Hibernate.
-   */
-  private String sanitizeHql(String rawHql) {
-    String hql = rawHql.trim();
-
-    if (hql.startsWith("```")) {
-      hql = hql.replaceFirst("(?is)^```(?:hql|jpql|sql)?\\s*", "");
-      hql = hql.replaceFirst("(?is)\\s*```$", "");
-    }
-
-    int semicolon = hql.indexOf(';');
-    if (semicolon >= 0) {
-      hql = hql.substring(0, semicolon);
-    }
-
-    return hql.trim();
   }
 
   private String localModelUnavailableMessage() {

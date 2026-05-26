@@ -191,14 +191,15 @@ src/main/java/com/demo/
 ├── model/
 │   ├── Category.java            JPA entity for product categories
 │   └── Product.java             JPA entity for products
-├── tool/
-│   ├── HibernateQueryTool.java  Executes read-only HQL through Hibernate
-│   ├── HqlAccessValidator.java  Validates allowed entities, fields, and read-only HQL
-│   └── HqlResultFormatter.java  Formats raw Hibernate results for the answer formatter
 ├── assistant/
 │   ├── HqlGenerator.java        LangChain4j @AiService that converts questions to HQL
 │   ├── AnswerFormatter.java     LangChain4j @AiService that formats real DB results
+│   ├── HqlSanitizer.java        Normalizes raw HQL returned by the local model
 │   └── DatabaseAssistant.java   Coordinates AI Services, HQL execution, and demo-safe rules
+├── dataaccess/
+│   ├── HqlQueryExecutor.java    Executes validated read-only HQL through Hibernate
+│   ├── HqlAccessValidator.java  Validates allowed entities, fields, and read-only HQL
+│   └── HqlResultFormatter.java  Formats raw Hibernate results for the answer formatter
 ├── controller/
 │   └── AssistantController.java REST API: GET and POST /assistant/ask
 └── config/
@@ -216,7 +217,7 @@ src/main/resources/
 Local models can sometimes answer from memory instead of making a tool call. This demo avoids that by using a controlled two-step flow:
 
 1. `HqlGenerator`, a LangChain4j `@AiService`, converts the user question into one read-only HQL query.
-2. `HibernateQueryTool` executes that HQL through `EntityManager`.
+2. `HqlQueryExecutor` executes that HQL through `EntityManager`.
 3. `AnswerFormatter`, another `@AiService`, receives the real database result and only formats the final answer.
 
 Every read-only question goes through the `HqlGenerator`. There are no hardcoded HQL shortcuts for the main demo questions, so the presentation shows the real AI-assisted query generation path.

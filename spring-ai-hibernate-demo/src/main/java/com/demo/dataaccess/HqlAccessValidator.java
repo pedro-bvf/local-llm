@@ -1,4 +1,4 @@
-package com.demo.tool;
+package com.demo.dataaccess;
 
 import org.springframework.stereotype.Component;
 

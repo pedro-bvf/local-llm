@@ -1,4 +1,4 @@
-package com.demo.tool;
+package com.demo.dataaccess;
 
 import com.demo.model.Category;
 import com.demo.model.Product;

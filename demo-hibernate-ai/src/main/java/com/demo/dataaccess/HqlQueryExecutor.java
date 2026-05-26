@@ -1,4 +1,4 @@
-package com.demo.tool;
+package com.demo.dataaccess;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class HibernateQueryTool {
+public class HqlQueryExecutor {
 
   private final HqlAccessValidator validator;
   private final HqlResultFormatter formatter;
@@ -28,7 +28,7 @@ public class HibernateQueryTool {
     try {
       List<?> results = entityManager
         .createQuery(hqlQuery)
-        .setMaxResults(Math.min(maxResults, 50))
+        .setMaxResults(Math.min(maxResults, 50)) // Safety limit
         .getResultList();
 
       if (results.isEmpty()) {

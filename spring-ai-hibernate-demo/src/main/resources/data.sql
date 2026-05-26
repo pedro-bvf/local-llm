@@ -6,7 +6,7 @@ INSERT INTO categories (name) VALUES ('Sports');
 INSERT INTO categories (name) VALUES ('Home & Kitchen');
 
 -- Products - Electronics
--- costPrice and supplierCode are fully mapped fields but restricted from AI access (see HibernateQueryTool)
+-- costPrice and supplierCode are fully mapped fields but restricted from AI access (see HqlAccessValidator)
 INSERT INTO products (name, price, stock, cost_price, supplier_code, category_id) VALUES ('MacBook Pro 16"',   2499.99,  12, 1850.00, 'APPL-MBP16-001', 1);
 INSERT INTO products (name, price, stock, cost_price, supplier_code, category_id) VALUES ('iPhone 15 Pro',     1199.99,  35,  890.00, 'APPL-IP15P-002', 1);
 INSERT INTO products (name, price, stock, cost_price, supplier_code, category_id) VALUES ('Sony WH-1000XM5',    379.99,  48,  210.00, 'SONY-WH5-003',   1);
