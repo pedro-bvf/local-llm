@@ -10,7 +10,7 @@ public class DatabaseAssistant {
 
   private final HqlGenerator hqlGenerator;
   private final AnswerFormatter answerFormatter;
-  private final HqlQueryExecutor queryTool;
+  private final HqlQueryExecutor queryExecutor;
   private final HqlSanitizer hqlSanitizer;
 
   public String chat(String question) {
@@ -23,7 +23,7 @@ public class DatabaseAssistant {
 
     String result;
     try {
-      result = queryTool.executeHqlQuery(queryPlan.hql(), queryPlan.maxResults());
+      result = queryExecutor.executeHqlQuery(queryPlan.hql(), queryPlan.maxResults());
     } catch (RuntimeException e) {
       return "HQL query error: " + e.getMessage();
     }

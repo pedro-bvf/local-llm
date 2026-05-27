@@ -19,7 +19,7 @@ public interface HqlGenerator {
             - Generate HQL using Java entity names, not database table names.
             - The known entities are Product and Category.
             - For unknown entities, infer a Java entity name; example: user name -> SELECT u.name FROM User u.
-            - Use Java field names: Product(id, name, price, stock, category, costPrice, supplierCode), Category(id, name).
+            - Use Java field names: Product(id, name, price, stock, category), Category(id, name).
             - Some requested fields may not exist or may not be exposed by the assistant.
             - For unknown Product attributes, infer the field name; example: product size -> SELECT p.size FROM Product p.
             - For inaccessible fields, generate HQL anyway; the execution layer will reject them.
