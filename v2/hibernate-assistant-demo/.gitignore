@@ -1,0 +1,9 @@
+target/
+.idea/
+*.iml
+.DS_Store
+# Atenea skills management
+.claude/skills/update-*
+.claude/skills/atenea-*
+.claude/skills/commons-*
+.claude/skills/fwk-*

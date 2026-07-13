@@ -1,0 +1,19 @@
+This demo uses the official Hibernate Assistant library:
+
+  org.hibernate.orm:hibernate-assistant:7.4.1.Final
+  https://hibernate.org/orm/  (Apache License 2.0)
+
+The class `com.demo.assistant.HibernateAssistantSpringAI` is the Spring AI port of
+`com.demo.assistant.HibernateAssistantLC4J` from the sibling `../hibernate-assistant-demo`,
+which is itself adapted from the LangChain4j orchestrator in Marco Belladelli's reference demo:
+
+  https://github.com/mbellade/demos/tree/main/quarkus/hibernate-assistant
+  (Apache License 2.0)
+
+The original is a CDI bean for Quarkus; the sibling rewrote it for Spring Boot with LangChain4j.
+This variant keeps the exact same orchestration (metamodel-built prompt, hiding in two layers,
+self-correcting retry) but swaps the LLM glue for Spring AI (ChatModel / Prompt / ChatMemory).
+The metamodel-to-prompt and results-to-JSON serialization come unchanged from the official
+`hibernate-assistant` artifact, and `FilteringMetamodelSerializer` / `FilteringResultsSerializer`
+are byte-for-byte the same as the LangChain4j demo — proving those layers are independent of the
+LLM framework.

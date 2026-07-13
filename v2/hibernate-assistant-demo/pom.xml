@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--
+      Spring Boot 4.1.0 manages Hibernate ORM 7.4.1.Final, which is exactly the
+      version the official `org.hibernate.orm:hibernate-assistant` artifact is
+      released against. Keeping both on 7.4.1 avoids any internal-API mismatch
+      (the assistant's result serializer relies on Hibernate internals).
+  -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.0</version>
+  </parent>
+
+  <groupId>com.demo</groupId>
+  <artifactId>hibernate-assistant-demo</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Hibernate Assistant Demo — JCON 2026</name>
+  <description>Natural language data access using the official Hibernate Assistant library + LangChain4j + Ollama
+  </description>
+
+  <properties>
+    <java.version>21</java.version>
+    <!-- Must match the Hibernate ORM version managed by Spring Boot (7.4.1.Final). -->
+    <hibernate-assistant.version>7.4.1.Final</hibernate-assistant.version>
+    <langchain4j.version>1.16.3</langchain4j.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-bom</artifactId>
+        <version>${langchain4j.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+
+    <!-- ── Spring Boot ──────────────────────────────────────────── -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <!-- ── Database (H2 in-memory for the demo) ─────────────────── -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!--
+        ── Hibernate Assistant ──────────────────────
+        Published as part of Hibernate ORM. Provides:
+          - org.hibernate.tool.language.HibernateAssistant            (interface)
+          - ...internal.MetamodelJsonSerializerImpl                   (metamodel -> LLM prompt)
+          - ...internal.ResultsJsonSerializerImpl                     (results -> JSON, mapping-aware)
+        The version is pinned to the Hibernate ORM version Spring Boot manages.
+    -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-assistant</artifactId>
+      <version>${hibernate-assistant.version}</version>
+    </dependency>
+
+    <!--
+        ── LangChain4j (plain libraries, no Spring starter) ──────────
+        We deliberately avoid the LangChain4j Spring Boot starter and build the
+        ChatModel bean ourselves, to stay decoupled from Spring Boot 4 / Spring
+        Framework 7 auto-configuration timing. The assistant artifact does NOT
+        depend on LangChain4j, so we own this version entirely.
+    -->
+    <dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-ollama</artifactId>
+    </dependency>
+
+    <!-- ── Tests ────────────────────────────────────────────────── -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

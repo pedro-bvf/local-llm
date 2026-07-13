@@ -1,0 +1,23 @@
+services:
+
+  # ─────────────────────────────────────────────────────────────────
+  # Ollama — local LLM (OPTIONAL).
+  #
+  # Only needed if you do NOT already run Ollama natively. If you have
+  # `ollama serve` running on the host, skip this file entirely; the app
+  # talks to http://localhost:11434 either way.
+  #
+  #   docker compose up -d ollama
+  #   docker compose exec ollama ollama pull qwen2.5-coder:7b
+  # ─────────────────────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: hibernate-assistant-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

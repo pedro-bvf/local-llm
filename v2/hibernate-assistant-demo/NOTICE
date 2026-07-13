@@ -1,0 +1,15 @@
+This demo uses the official Hibernate Assistant library:
+
+  org.hibernate.orm:hibernate-assistant:7.4.1.Final
+  https://hibernate.org/orm/  (Apache License 2.0)
+
+The class `com.demo.assistant.HibernateAssistantLC4J` is adapted from the
+LangChain4j orchestrator in Marco Belladelli's reference demo:
+
+  https://github.com/mbellade/demos/tree/main/quarkus/hibernate-assistant
+  (Apache License 2.0)
+
+The original is a CDI bean for Quarkus; this version was rewritten for Spring
+Boot and simplified (two-step execute + self-correcting retry instead of the
+full LangChain4j RetrievalAugmentor). The metamodel-to-prompt and results-to-JSON
+serialization come unchanged from the official `hibernate-assistant` artifact.
