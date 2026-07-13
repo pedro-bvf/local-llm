@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Arquitetura V2" id="arqV2TalkToYourData">
-    <mxGraphModel dx="1414" dy="760" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="620" background="#FFFFFF" math="0" shadow="0">
+    <mxGraphModel dx="1414" dy="760" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="620" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -66,7 +66,7 @@
             <mxPoint x="514" y="290" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e7" edge="1" parent="1" source="res" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#2E75B6;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.967;entryY=1;entryDx=0;entryDy=0;fontColor=#1F5A8F;entryPerimeter=0;" target="cola" value="dados JSON">
+        <mxCell id="e7" edge="1" parent="1" source="res" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#2E75B6;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.967;entryY=1;entryDx=0;entryDy=0;fontColor=#1F5A8F;entryPerimeter=0;" target="cola" value="&lt;span&gt;dados JSON&lt;/span&gt;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e8" edge="1" parent="1" source="cola" style="edgeStyle=none;html=1;endArrow=none;strokeColor=#6A4C93;strokeWidth=1;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="llm" value="">
