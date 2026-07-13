@@ -4,8 +4,9 @@ Natural-language data access in Java using the **real** Hibernate Assistant libr
 (`org.hibernate.orm:hibernate-assistant`), with **Spring Boot 4.1**, **Hibernate ORM 7.4**,
 **LangChain4j**, **H2** and **Ollama**.
 
-This is the *"done with the actual library"* counterpart to the two sibling demos
-(`../demo-hibernate-ai`, `../spring-ai-hibernate-demo`), which only **reimplemented the idea**
+This is the *"done with the actual library"* counterpart to the two V1 demos
+([`demo-hibernate-ai`](../../v1/demo-hibernate-ai),
+[`spring-ai-hibernate-demo`](../../v1/spring-ai-hibernate-demo)), which only **reimplemented the idea**
 by hand. See [How this differs](#how-this-differs-from-the-hand-rolled-demos).
 
 ---

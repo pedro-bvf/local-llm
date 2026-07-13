@@ -20,7 +20,7 @@ The Spring AI version deliberately sends every read-only question through the LL
 ## Run
 
 ```bash
-cd local-llm/spring-ai-hibernate-demo
+cd local-llm/v1/spring-ai-hibernate-demo
 
 # Option A: local Ollama, best on Mac/Apple Silicon
 ollama pull qwen2.5:3b
