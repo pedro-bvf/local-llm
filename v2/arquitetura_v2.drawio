@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Arquitetura V2" id="arqV2TalkToYourData">
+    <mxGraphModel dx="1414" dy="760" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="620" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1F3864;" value="&lt;b&gt;Arquitetura V2 — Talk to Your Data&lt;/b&gt;" vertex="1">
+          <mxGeometry height="34" width="760" x="26" y="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sub" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#555555;" value="Biblioteca oficial hibernate-assistant · o LLM nunca acede à base de dados — só o Hibernate" vertex="1">
+          <mxGeometry height="22" width="820" x="26" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFE9F5;strokeColor=#6A4C93;strokeWidth=2;fontColor=#4A2E73;" value="&lt;b&gt;LLM local — Ollama&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;qwen2.5-coder:7b · gera HQL / redige resposta&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="300" x="360" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="cola" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7F0F9;strokeColor=#2E75B6;strokeWidth=2;dashed=1;fontColor=#1F5A8F;" value="&lt;b&gt;Cola LLM — a única diferença entre os gémeos&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;LangChain4j (ChatModel)  ·  Spring AI (ChatModel + outputSchema)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="360" x="330" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="perg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#555555;strokeWidth=1;fontColor=#333333;" value="&lt;b&gt;Pergunta&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;/assistant/ask&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="120" x="26" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="prompt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F3EC;strokeColor=#2E7D46;strokeWidth=2;fontColor=#1E5631;verticalAlign=top;spacingTop=8;" value="&lt;b&gt;Prompt do metamodelo&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;MetamodelJsonSerializer&lt;/font&gt;&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#B26A00&quot; style=&quot;font-size:11px&quot;&gt;Camada 1 — esconde do prompt&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="86" width="168" x="176" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="hib" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F3EC;strokeColor=#2E7D46;strokeWidth=2;fontColor=#1E5631;verticalAlign=top;spacingTop=8;" value="&lt;b&gt;Hibernate&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;createSelectionQuery&lt;br&gt;valida (só SELECT) + executa&lt;/font&gt;" vertex="1">
+          <mxGeometry height="86" width="168" x="430" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="res" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F3EC;strokeColor=#2E7D46;strokeWidth=2;fontColor=#1E5631;verticalAlign=top;spacingTop=8;" value="&lt;b&gt;Resultados → JSON&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;ResultsJsonSerializer&lt;/font&gt;&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#B26A00&quot; style=&quot;font-size:11px&quot;&gt;Camada 2 — esconde do resultado&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="86" width="168" x="684" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="resp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#555555;strokeWidth=1;fontColor=#333333;" value="&lt;b&gt;Resposta&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;linguagem natural&lt;/font&gt;" vertex="1">
+          <mxGeometry height="66" width="104" x="884" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="db" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#555555;strokeWidth=1;fontColor=#333333;" value="&lt;b&gt;Base de dados&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;H2 (via JPA)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="136" x="446" y="452" as="geometry" />
+        </mxCell>
+        <mxCell id="legc1" parent="1" style="rounded=1;html=1;fillColor=#E8F3EC;strokeColor=#2E7D46;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="26" y="544" as="geometry" />
+        </mxCell>
+        <mxCell id="legt1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" value="Núcleo partilhado (Hibernate + serializers oficiais) — igual nos dois gémeos" vertex="1">
+          <mxGeometry height="24" width="470" x="48" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="legc2" parent="1" style="rounded=1;html=1;fillColor=#E7F0F9;strokeColor=#2E75B6;strokeWidth=2;dashed=1;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="560" y="544" as="geometry" />
+        </mxCell>
+        <mxCell id="legt2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#333333;" value="Cola LLM — troca LangChain4j ↔ Spring AI" vertex="1">
+          <mxGeometry height="24" width="360" x="582" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="perg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#444444;strokeWidth=2;" target="prompt" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="prompt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#444444;strokeWidth=2;" target="hib" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="hib" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#444444;strokeWidth=2;" target="res" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="res" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#444444;strokeWidth=2;" target="resp" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="prompt" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#2E75B6;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.078;entryY=1;entryDx=0;entryDy=0;fontColor=#1F5A8F;entryPerimeter=0;" target="cola" value="prompt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="cola" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#2E75B6;strokeWidth=2;exitX=0.308;exitY=1.056;exitDx=0;exitDy=0;fontColor=#1F5A8F;entryX=0.101;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;entryPerimeter=0;" target="hib" value="HQL gerado">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="514" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="res" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#2E75B6;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.967;entryY=1;entryDx=0;entryDy=0;fontColor=#1F5A8F;entryPerimeter=0;" target="cola" value="dados JSON">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="cola" style="edgeStyle=none;html=1;endArrow=none;strokeColor=#6A4C93;strokeWidth=1;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="llm" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="hib" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#444444;strokeWidth=2;" target="db" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="db" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#444444;strokeWidth=2;" target="hib" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="hib" style="edgeStyle=none;html=1;endArrow=classic;strokeColor=#C0392B;strokeWidth=2;dashed=1;exitX=0.863;exitY=0;exitDx=0;exitDy=0;entryX=0.689;entryY=1;entryDx=0;entryDy=0;fontColor=#C0392B;fontStyle=1;exitPerimeter=0;entryPerimeter=0;" target="cola" value="auto-correção ×2 (erro → LLM)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
