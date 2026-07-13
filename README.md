@@ -40,6 +40,7 @@ descrever o metamodelo, validar consultas HQL e serializar os resultados.
 
 ## Documentação V2
 - [Documentação em português V2](v2/local_llm_pt_v2.docx)
+- [Documentação em espanhol V2](v2/local_llm_es_v2.docx)
 - [Arquitetura V2](v2/arquitetura_v2.drawio)
 
 ## Fluxo
